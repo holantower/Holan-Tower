@@ -28,6 +28,8 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { Page } from './types';
 import { ServiceChargeView } from './components/ServiceChargeView';
+import { DescoView } from './components/DescoView';
+import BottomNav from './components/BottomNav';
 
 // --- Components ---
 
@@ -58,7 +60,9 @@ const NoticeBar = ({ activePage }: { activePage: Page }) => {
     'desco': "ডেসকো প্রিপেইড মিটারে রিচার্জ করতে হলে অবশ্যই অ্যাকাউন্ট নাম্বার প্রয়োজন হবে। নিচে উল্লেখিত সকল ইউনিটের একাউন্ট নাম্বার আপডেট করে দেওয়া হলো। সতর্কতার সাথে রিচার্জ করতে হবে, ১ মিটারের রিচার্জ যেন অন্য মিটারে না হয়।",
     'emergency': "সম্মানিত ফ্ল্যাট মালিক ও বাসিন্দাবৃন্দ, বিল্ডিং সংক্রান্ত যেকোনো সমস্যা যেমন — লিফট, বিদ্যুৎ, পানি, গ্যাস, নিরাপত্তা বা অন্যান্য জরুরি বিষয় দেখা দিলে অনুগ্রহ করে নোটিশ বোর্ড/অ্যাপে প্রদত্ত জরুরি যোগাযোগ নম্বরে দ্রুত যোগাযোগ করুন। দ্রুত যোগাযোগ করলে সমস্যা সমাধান সহজ ও দ্রুত করা সম্ভব হবে। সবার সহযোগিতায় আমাদের ভবনকে নিরাপদ ও সুশৃঙ্খল রাখি।",
     'menu': "হলান টাওয়ারে আপনাকে স্বাগতম। আমাদের ভবনের সকল গুরুত্বপূর্ণ তথ্য ও দৈনন্দিন সেবাগুলি এখনে দ্রুত পেয়ে যাবেন। এখানে জরুরী নোটিশ, ইউটিলিটি ও সার্ভিস চার্জ, ডেসকো রিচার্জ, যোগাযোগ ও জরুরী হেল্পলাইন, ম্যাপ ও রুট নির্দেশনা, প্রিপেইড মিটার নাম্বার, লিফট ব্যবহারের নিয়ম, গ্যালারি এবং বাসাভাড়ার তথ্য একসাথে সহজে খুঁজে পাবেন। এটি হলান টাওয়ারের বাসিন্দাদের জন্য একটি দ্রুত, সহজ ও নির্ভরযোগ্য ডিজিটাল সার্ভিস কেন্দ্র।",
-    'settings': "মাসিক সার্ভিস চার্জ প্রতি মাসের ৭ তারিখের মধ্যে পরিশোধ করুন | পানি ও বিদ্যুৎ অপচয় রোধ করুন | বাইরে যাওয়ার আগে গ্যাস ও বৈদ্যুতিক লাইন বন্ধ রাখুন | নির্ধারিত স্থানে ময়লা ফেলুন | নিরাপত্তা নিশ্চিত করুন | লিফট ব্যবহারে সতর্ক থাকুন।"
+    'settings': "মাসিক সার্ভিস চার্জ প্রতি মাসের ৭ তারিখের মধ্যে পরিশোধ করুন | পানি ও বিদ্যুৎ অপচয় রোধ করুন | বাইরে যাওয়ার আগে গ্যাস ও বৈদ্যুতিক লাইন বন্ধ রাখুন | নির্ধারিত স্থানে ময়লা ফেলুন | নিরাপত্তা নিশ্চিত করুন | লিফট ব্যবহারে সতর্ক থাকুন।",
+    'desco-info': "ডেসকো মিটারের সকল তথ্য এখানে পাওয়া যাবে।",
+    'desco-rules': "ডেসকো রিচার্জ করার নিয়মাবলী এখানে বিস্তারিত দেওয়া আছে।"
   };
 
   const text = notices[activePage] || notices['home'];
@@ -292,14 +296,6 @@ export default function App() {
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
   const [showSummaryList, setShowSummaryList] = useState<boolean>(false);
 
-  const navItems = [
-    { id: 'service-charge', label: 'সার্ভিস চার্জ', icon: CreditCard },
-    { id: 'desco', label: 'ডেসকো', icon: Zap },
-    { id: 'home', label: 'হোম', icon: Home, isCenter: true },
-    { id: 'emergency', label: 'জরুরী', icon: ShieldAlert },
-    { id: 'menu', label: 'মেনু', icon: MenuIcon },
-  ];
-
   const renderPage = () => {
     switch (activePage) {
       case 'home':
@@ -327,7 +323,11 @@ export default function App() {
           />
         );
       case 'desco':
-        return <PlaceholderPage title="ডেসকো রিচার্জ" onBack={() => setActivePage('home')} />;
+        return <DescoView setActivePage={setActivePage} />;
+      case 'desco-info':
+        return <PlaceholderPage title="ডেসকো মিটারের সকল তথ্য" onBack={() => setActivePage('desco')} />;
+      case 'desco-rules':
+        return <PlaceholderPage title="ডেসকো রিচার্জ করার নিয়ম" onBack={() => setActivePage('desco')} />;
       case 'emergency':
         return <PlaceholderPage title="জরুরী নম্বর" onBack={() => setActivePage('home')} />;
       default:
@@ -346,38 +346,7 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-[0_-1px_10px_rgba(0,0,0,0.05)] z-50">
-        <div className="max-w-md mx-auto h-[72px] flex items-center justify-between px-2 pb-[env(safe-area-inset-bottom)]">
-          {navItems.map((item) => {
-            const isActive = activePage === item.id;
-            
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActivePage(item.id as Page)}
-                className="flex flex-col items-center justify-center flex-1 h-full gap-1 relative overflow-hidden active:bg-violet-50/50 transition-colors"
-              >
-                {/* Top Indicator Line */}
-                {isActive && (
-                  <motion.div 
-                    layoutId="nav-indicator"
-                    className="absolute top-0 w-12 h-[3px] bg-violet-600 rounded-b-full"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                
-                <div className={`transition-all duration-200 ${isActive ? 'text-violet-600' : 'text-slate-400'}`}>
-                  <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-                </div>
-                <span className={`text-[10px] font-bold transition-all duration-200 ${isActive ? 'text-violet-600' : 'text-slate-400'}`}>
-                  {item.label}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
+      <BottomNav activePage={activePage} setActivePage={setActivePage} />
     </div>
   );
 }
