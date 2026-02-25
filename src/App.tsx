@@ -29,6 +29,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Page } from './types';
 import { ServiceChargeView } from './components/ServiceChargeView';
 import { DescoView } from './components/DescoView';
+import { DescoInfoView } from './components/DescoInfoView';
 import BottomNav from './components/BottomNav';
 
 // --- Components ---
@@ -325,7 +326,7 @@ export default function App() {
       case 'desco':
         return <DescoView setActivePage={setActivePage} />;
       case 'desco-info':
-        return <PlaceholderPage title="ডেসকো মিটারের সকল তথ্য" onBack={() => setActivePage('desco')} />;
+        return <DescoInfoView onBack={() => setActivePage('desco')} />;
       case 'desco-rules':
         return <PlaceholderPage title="ডেসকো রিচার্জ করার নিয়ম" onBack={() => setActivePage('desco')} />;
       case 'emergency':
