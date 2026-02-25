@@ -274,8 +274,8 @@ export const DescoView: React.FC<DescoViewProps> = ({ lang = 'bn', setActivePage
                     {t.subtitle}
                 </p>
             </div>
-            {/* Logo Placeholder or Icon */}
-            <div className="w-10 h-10 bg-white dark:bg-slate-800 rounded-full shadow-md flex items-center justify-center border border-slate-100 dark:border-slate-700">
+            {/* Logo Placeholder or Icon - Blinking Effect */}
+            <div className="w-10 h-10 bg-white dark:bg-slate-800 rounded-full shadow-md flex items-center justify-center border border-slate-100 dark:border-slate-700 light-blink">
                 <Lightbulb size={20} className="text-indigo-600 dark:text-indigo-400" />
             </div>
         </div>
@@ -284,9 +284,9 @@ export const DescoView: React.FC<DescoViewProps> = ({ lang = 'bn', setActivePage
         <div className="grid grid-cols-2 gap-3 mb-5">
             <button 
                 onClick={() => setActivePage('desco-info')}
-                className="bg-gradient-to-br from-[#f43f5e] to-[#e11d48] rounded-xl p-3 shadow-md hover:shadow-lg transition-all text-center flex flex-col items-center justify-center gap-1.5 h-24 group active:scale-95 relative overflow-hidden border border-white/20"
+                className="bg-gradient-to-br from-[#f43f5e] to-[#e11d48] rounded-xl p-3 shadow-md hover:shadow-lg transition-all text-left flex flex-col items-start justify-center gap-1.5 h-24 group active:scale-95 relative overflow-hidden border border-white/20"
             >
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform relative z-10 shrink-0">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform relative z-10 shrink-0 icon-premium-pulse">
                     <Info size={16} />
                 </div>
                 <span className="text-[10px] font-bold text-white leading-tight relative z-10">
@@ -295,9 +295,9 @@ export const DescoView: React.FC<DescoViewProps> = ({ lang = 'bn', setActivePage
             </button>
             <button 
                 onClick={() => setActivePage('desco-rules')}
-                className="bg-gradient-to-br from-[#f43f5e] to-[#e11d48] rounded-xl p-3 shadow-md hover:shadow-lg transition-all text-center flex flex-col items-center justify-center gap-1.5 h-24 group active:scale-95 relative overflow-hidden border border-white/20"
+                className="bg-gradient-to-br from-[#f43f5e] to-[#e11d48] rounded-xl p-3 shadow-md hover:shadow-lg transition-all text-right flex flex-col items-end justify-center gap-1.5 h-24 group active:scale-95 relative overflow-hidden border border-white/20"
             >
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform relative z-10">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform relative z-10 icon-premium-pulse">
                     <Zap size={16} />
                 </div>
                 <span className="text-[10px] font-bold text-white leading-tight relative z-10">
@@ -577,6 +577,13 @@ export const DescoView: React.FC<DescoViewProps> = ({ lang = 'bn', setActivePage
         }
         .icon-premium-pulse {
           animation: iconPulsePremium 3s ease-in-out infinite;
+        }
+        @keyframes lightBlink {
+          0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.6)); }
+          50% { opacity: 0.3; filter: drop-shadow(0 0 0px rgba(79, 70, 229, 0)); }
+        }
+        .light-blink {
+          animation: lightBlink 1.5s ease-in-out infinite;
         }
       `}</style>
 
